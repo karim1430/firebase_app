@@ -1,16 +1,52 @@
+Hello Created By Abdalluh Essam 🇪🇬🇪🇬🇪
+abdallhesam100@gmail.com
+
+
+
+
 # fire_app
 
-A new Flutter project.
+
+🚀 Clean Architecture Flutter Project Generated Automatically
+
+
+## Structure
+
+
+```
+lib/
+├── core/
+│   ├── constants
+│   ├── network
+│   ├── errors
+│   ├── utils
+│   ├── services
+│   ├── routing
+│   ├── theme
+│   ├── cubit
+│   └── extensions
+├── features/
+│   ├── splash
+│   ├── onboarding
+│   ├── auth
+│   └── home
+├── app.dart
+├── main.dart
+└── app_bloc_observer.dart
+```
+
 
 ## Getting Started
+```bash
+flutter pub get
+flutter run
+```
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+✅ Built with ❤️ using the Clean Architecture Generator
+
+
+Hello Created By Abdalluh Essam 🇪🇬🇪🇬🇪
