@@ -1,3 +1,5 @@
+import 'package:fire_app/core/extensions/navigation_extensions.dart';
+import 'package:fire_app/core/routing/routes.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -50,6 +52,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   if (isLastPage) {
+                    context.pushNamed(Routes.loginView);
                   } else {
                     controller.nextPage(
                       duration: const Duration(milliseconds: 500),
