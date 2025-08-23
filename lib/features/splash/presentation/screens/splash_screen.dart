@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:animate_do/animate_do.dart';
+import 'package:fire_app/core/utils/app_shared_preferences.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/routing/routes.dart';
 import 'dart:async';
@@ -16,6 +20,13 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 2), () {
       context.pushNamed(Routes.onBoardingScreen);
+      // String token = AppPreferences().getData('token').toString();
+      // if (token.isNotEmpty) {
+      //   log('token:::::::::::: $token');
+      //   context.pushNamed(Routes.homeView);
+      // } else {
+      //   context.pushNamed(Routes.onBoardingScreen);
+      // }
     });
   }
 
