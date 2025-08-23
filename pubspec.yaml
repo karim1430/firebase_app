@@ -7,46 +7,45 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  flutter:
-    sdk: flutter
-  flutter_bloc:
-  dio:
-  shared_preferences:
-  easy_localization:
-  intl:
-  equatable:
-  get_it:
-  cached_network_image:
-  flutter_screenutil:
-  flutter_animate:
-  freezed_annotation:
-  json_annotation:
-  flutter_native_splash:
-  animate_do:
-  lottie:
-  google_fonts:
-  flutter_launcher_icons:
-  animator:
-  dartz:
-  flutter_svg:
+  animate_do: null
+  animator: null
+  bloc: ^9.0.0
+  cached_network_image: null
+  cloud_firestore: ^6.0.0
   cupertino_icons: ^1.0.8
-  #firebase packages
+  dartz: null
+  dio: null
+  easy_localization: null
+  equatable: null
   firebase_auth: ^6.0.1
   firebase_core: ^4.0.0
   firebase_messaging: ^16.0.0
   firebase_storage: ^13.0.0
-  cloud_firestore: ^6.0.0
-
+  flutter:
+    sdk: flutter
+  flutter_animate: null
+  flutter_bloc: ^9.1.1
+  flutter_launcher_icons: null
+  flutter_native_splash: null
+  flutter_screenutil: null
+  flutter_svg: null
+  # freezed_annotation: null
+  get_it: null
+  google_fonts: null
+  intl: null
+  json_annotation: null
+  lottie: null
+  shared_preferences: null
 
 dev_dependencies:
+  bloc_test: null
+  build_runner: null
+  flutter_lints: null
   flutter_test:
     sdk: flutter
-  build_runner:
-  freezed:
-  json_serializable:
-  bloc_test:
-  mockito:
-  flutter_lints:
+  # freezed: null
+  json_serializable: null
+  mockito: null
 
 flutter:
   uses-material-design: true

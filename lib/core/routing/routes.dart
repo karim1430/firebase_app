@@ -4,4 +4,5 @@ class Routes {
   static const String onBoardingScreen = '/onboarding';
   static const String loginView = '/login';
   static const String registerView = '/register';
+  static const String homeView = '/home';
 }
