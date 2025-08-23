@@ -4,8 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../../core/utils/text_button_widget.dart';
 import '../../../../../core/utils/text_field_widget.dart';
 
-class EmailAndPasswordWidget extends StatelessWidget {
-  const EmailAndPasswordWidget({
+class UserNameEmailAndPasswordWiget extends StatelessWidget {
+  const UserNameEmailAndPasswordWiget({
     super.key,
   });
 
@@ -14,6 +14,16 @@ class EmailAndPasswordWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(
+          'Username',
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+        ),
+        SizedBox(height: 5.h),
+        TextFieldWidget(
+          textlabel: 'username',
+          iconData: Icons.person,
+        ),
+        SizedBox(height: 20.h),
         Text(
           'Email',
           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
@@ -25,7 +35,7 @@ class EmailAndPasswordWidget extends StatelessWidget {
         ),
         SizedBox(height: 20.h),
         Text(
-          'password',
+          'Password',
           style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
         SizedBox(height: 5.h),
@@ -33,19 +43,19 @@ class EmailAndPasswordWidget extends StatelessWidget {
           textlabel: 'Password',
           iconData: Icons.password,
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              "Forgot Password?",
-              style: TextStyle(fontSize: 14.sp, color: Colors.blue),
-            ),
-          ),
+        SizedBox(height: 20.h),
+        Text(
+          'Confirm Password',
+          style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
         ),
-        SizedBox(height: 10.h),
+        SizedBox(height: 5.h),
+        TextFieldWidget(
+          textlabel: 'Confirm Password',
+          iconData: Icons.password,
+        ),
+        SizedBox(height: 30.h),
         TextButtonWidget(
-          text: 'Login',
+          text: 'Register',
           onPressed: () {},
         ),
       ],
