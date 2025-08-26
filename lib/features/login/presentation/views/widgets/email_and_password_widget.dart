@@ -1,5 +1,6 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:fire_app/core/extensions/navigation_extensions.dart';
+import 'package:fire_app/core/utils/awesome_dialog_custom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,9 +39,9 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
         }
         if (state is LoginSuccess &&
             FirebaseAuth.instance.currentUser!.emailVerified) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.successMessage)),
-          );
+          awesomeDialogCustom(
+                  context, 'Success', state.successMessage, DialogType.success)
+              .show();
           // context.pushNamed(Routes.homeView);
         }
       },
@@ -145,13 +146,13 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
                       if (user != null) {
                         if (!user.emailVerified) {
                           await user.sendEmailVerification();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text(
-                                    'Verification email sent. Please check your inbox.')),
+                          awesomeDialogCustom(
+                            context,
+                            'Email Not Verified',
+                            'A verification email has been sent to your email address. Please verify your email before logging in.',
+                            DialogType.warning,
                           );
                         } else {
-                          // Email is verified, navigate to home
                           await context.pushNamed(Routes.homeView);
                         }
                       }
