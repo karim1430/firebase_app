@@ -1,6 +1,8 @@
 import 'package:fire_app/core/extensions/navigation_extensions.dart';
+import 'package:fire_app/core/utils/sign_in_with_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../../../core/routing/routes.dart';
 import 'divider_widget.dart';
@@ -52,6 +54,13 @@ class LoginViewBody extends StatelessWidget {
               FollowWithFaceGoogleApple(
                 iconData: Icons.g_mobiledata,
                 color: Colors.red,
+                onTap: () {
+                  signInWithGoogle().then((value) {
+                    if (value != null) {
+                      context.pushNamed(Routes.homeView);
+                    }
+                  });
+                },
               ), // Changed to Google icon
               SizedBox(width: 20.w),
               FollowWithFaceGoogleApple(

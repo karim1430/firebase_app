@@ -25,17 +25,15 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
-        print('=============User is currently signed out!=======');
+        log('=============User is currently signed out!=======');
       } else {
         user.getIdToken().then((value) async {
-          // log('Token: $value');
-          // final prefs = await SharedPreferences.getInstance();
-          // await prefs.setString('token', value!);
-
           await AppPreferences().setData('token', value.toString());
         });
 
-        print('===============User is signed in!=============');
+        log('===============User is signed in!=============');
+        log(user.email.toString());
+        log(user.emailVerified.toString());
       }
     });
     super.initState();

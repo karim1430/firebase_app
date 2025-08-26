@@ -25,17 +25,19 @@ dependencies:
     sdk: flutter
   flutter_animate: null
   flutter_bloc: ^9.1.1
+  # flutter_firebase_auth_repository: ^1.0.2
   flutter_launcher_icons: null
   flutter_native_splash: null
   flutter_screenutil: null
   flutter_svg: null
-  # freezed_annotation: null
   get_it: null
   google_fonts: null
+  google_sign_in: 7.1.1
   intl: null
   json_annotation: null
   lottie: null
   shared_preferences: null
+  awesome_dialog: ^3.1.0
 
 dev_dependencies:
   bloc_test: null

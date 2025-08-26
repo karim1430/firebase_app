@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:fire_app/core/extensions/navigation_extensions.dart';
 import 'package:fire_app/core/routing/routes.dart';
 import 'package:fire_app/features/register/presentation/manager/cubit/register_cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,7 +35,9 @@ class _UserNameEmailAndPasswordWigetState
       listener: (context, state) {
         if (state is RegisterSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.successMessage)),
+            SnackBar(
+                content:
+                    Text('${state.successMessage} Please verify your email')),
           );
           // Navigate to home or show success message
         } else if (state is RegisterFailure) {
@@ -122,7 +126,8 @@ class _UserNameEmailAndPasswordWigetState
                             password: passwordController.text,
                             username: userNameController.text,
                           );
-                      context.pushNamed(Routes.homeView);
+
+                      await context.pushNamed(Routes.loginView);
                     } else {
                       setState(() {
                         autovalidateMode = AutovalidateMode.always;

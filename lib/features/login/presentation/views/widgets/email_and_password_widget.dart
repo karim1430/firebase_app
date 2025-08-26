@@ -1,8 +1,9 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:fire_app/core/extensions/navigation_extensions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../../../../core/routing/routes.dart';
 import '../../../../../core/utils/text_button_widget.dart';
 import '../../../../../core/utils/text_field_widget.dart';
@@ -12,7 +13,6 @@ class EmailAndPasswordWidget extends StatefulWidget {
   const EmailAndPasswordWidget({
     super.key,
   });
-
   @override
   State<EmailAndPasswordWidget> createState() => _EmailAndPasswordWidgetState();
 }
@@ -36,11 +36,12 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
               .showSnackBar(SnackBar(content: Text(state.errorMessage)));
           return;
         }
-        if (state is LoginSuccess) {
+        if (state is LoginSuccess &&
+            FirebaseAuth.instance.currentUser!.emailVerified) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.successMessage)),
           );
-          context.pushNamed(Routes.homeView);
+          // context.pushNamed(Routes.homeView);
         }
       },
       builder: (context, state) {
@@ -74,7 +75,42 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final email = emailAddressController.text.trim();
+
+                    if (email.isEmpty ||
+                        !RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(email)) {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        title: 'Error',
+                        desc: 'Please enter a valid email address.',
+                      ).show();
+                      return;
+                    }
+                    try {
+                      await FirebaseAuth.instance
+                          .sendPasswordResetEmail(email: email);
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.success,
+                        animType: AnimType.rightSlide,
+                        title: 'Success',
+                        desc:
+                            'Password reset email sent. Please check your inbox.',
+                      ).show();
+                    } catch (e) {
+                      AwesomeDialog(
+                        context: context,
+                        dialogType: DialogType.error,
+                        animType: AnimType.rightSlide,
+                        title: 'Error',
+                        desc: e.toString(),
+                      ).show();
+                    }
+                  },
                   child: Text(
                     "Forgot Password?",
                     style: TextStyle(fontSize: 14.sp, color: Colors.blue),
@@ -98,9 +134,32 @@ class _EmailAndPasswordWidgetState extends State<EmailAndPasswordWidget> {
                     formKey.currentState!.save();
                     String email = emailAddressController.text.trim();
                     String password = passwordController.text.trim();
-                    context
-                        .read<LoginCubit>()
-                        .loginUser(email: email, password: password);
+                    try {
+                      await context
+                          .read<LoginCubit>()
+                          .loginUser(email: email, password: password);
+
+                      // Get current user after successful login
+                      User? user = FirebaseAuth.instance.currentUser;
+                      // context.pushNamed(Routes.homeView); // مؤقتا فقط
+                      if (user != null) {
+                        if (!user.emailVerified) {
+                          await user.sendEmailVerification();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text(
+                                    'Verification email sent. Please check your inbox.')),
+                          );
+                        } else {
+                          // Email is verified, navigate to home
+                          await context.pushNamed(Routes.homeView);
+                        }
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Error: ${e.toString()}')),
+                      );
+                    }
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

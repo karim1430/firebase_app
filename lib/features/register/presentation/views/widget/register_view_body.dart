@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../../core/utils/text_button_widget.dart';
-import '../../../../../core/utils/text_field_widget.dart';
 import 'user_name_email_and_password_widget.dart';
 
 class RegisterViewBody extends StatelessWidget {

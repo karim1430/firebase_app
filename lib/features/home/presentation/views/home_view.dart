@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
+import '../../../../core/routing/routes.dart';
 import 'widgets/home_veiw_body.dart';
 
 class HomeView extends StatelessWidget {
@@ -8,6 +10,23 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Home View'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.exit_to_app),
+            onPressed: () async {
+              GoogleSignIn.instance.disconnect();
+
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.loginView,
+                (Route<dynamic> route) => false,
+              );
+            },
+          ),
+        ],
+      ),
       body: HomeVeiwBody(),
     );
   }
