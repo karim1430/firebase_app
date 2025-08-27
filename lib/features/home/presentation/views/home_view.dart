@@ -10,7 +10,15 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        onPressed: () {
+          Navigator.of(context).pushNamed(Routes.categoriesView);
+        },
+        child: const Icon(Icons.add),
+      ),
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Home View'),
         actions: [
           IconButton(

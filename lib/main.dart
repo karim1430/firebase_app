@@ -21,7 +21,7 @@ void main() async {
   runApp(EasyLocalization(
     supportedLocales: AppConstants.supportedLocales,
     path: 'assets/lang',
-    fallbackLocale: const Locale('ar'),
+    fallbackLocale: const Locale('en'),
     child: MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LocaleCubit()),

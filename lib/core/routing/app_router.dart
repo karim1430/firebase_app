@@ -1,3 +1,4 @@
+import 'package:fire_app/features/home/presentation/views/categories_view.dart';
 import 'package:fire_app/features/home/presentation/views/home_view.dart';
 import 'package:fire_app/features/login/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,8 @@ class AppRouter {
         return _createRoute(const RegisterView());
       case Routes.homeView:
         return _createRoute(const HomeView());
+      case Routes.categoriesView:
+        return _createRoute(const CategoriesView());
       default:
         return MaterialPageRoute(
           builder: (_) => const Scaffold(
