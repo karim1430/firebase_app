@@ -2,8 +2,6 @@ import 'package:fire_app/core/extensions/navigation_extensions.dart';
 import 'package:fire_app/core/utils/sign_in_with_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
 import '../../../../../core/routing/routes.dart';
 import 'divider_widget.dart';
 import 'email_and_password_widget.dart';

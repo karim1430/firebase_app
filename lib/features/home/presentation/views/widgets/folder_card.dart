@@ -6,15 +6,18 @@ class FolderCard extends StatelessWidget {
     super.key,
     this.onTap,
     required this.title,
+    this.onlongPress,
   });
   final void Function()? onTap;
   final String title;
+  final void Function()? onlongPress;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.blue,
       child: InkWell(
+        onLongPress: onlongPress,
         onTap: onTap,
         child: Center(
           child: Column(
