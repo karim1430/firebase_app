@@ -6,4 +6,5 @@ class Routes {
   static const String registerView = '/register';
   static const String homeView = '/home';
   static const String categoriesView = '/categories';
+  static const String editView = '/edit';
 }
