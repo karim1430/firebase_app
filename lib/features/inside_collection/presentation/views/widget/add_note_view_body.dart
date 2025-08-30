@@ -1,20 +1,21 @@
+import 'package:fire_app/core/utils/add_note.dart';
+import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:fire_app/core/utils/awesome_dialog_custom.dart';
 import 'package:fire_app/core/utils/text_button_widget.dart';
 import 'package:fire_app/core/utils/text_field_widget.dart';
-import 'package:flutter/material.dart';
-import '../../../../../core/utils/add_category.dart';
 
-class CategoriesViewBody extends StatefulWidget {
-  const CategoriesViewBody({super.key});
-
+class AddNoteViewBody extends StatefulWidget {
+  const AddNoteViewBody({super.key, required this.docID});
+  final String docID;
   @override
-  State<CategoriesViewBody> createState() => _CategoriesViewBodyState();
+  State<AddNoteViewBody> createState() => _AddNoteViewBodyState();
 }
 
-class _CategoriesViewBodyState extends State<CategoriesViewBody> {
+class _AddNoteViewBodyState extends State<AddNoteViewBody> {
   final TextEditingController textEditingController = TextEditingController();
-  bool isLoading = false;
+  final TextEditingController contentController = TextEditingController();
+  bool isloading = false;
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -24,24 +25,37 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
           child: Column(
             children: [
               TextFieldWidget(
-                  textlabel: 'add category',
+                  textlabel: 'add note',
                   iconData: Icons.note,
                   textEditingController: textEditingController),
               const SizedBox(height: 20),
+              TextFieldWidget(
+                  textlabel: 'add content',
+                  iconData: Icons.note,
+                  textEditingController: contentController),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                 child: TextButtonWidget(
                   text: "add",
                   onPressed: () async {
-                    if (textEditingController.text.isNotEmpty) {
+                    if (textEditingController.text.isNotEmpty &&
+                        contentController.text.isNotEmpty) {
                       setState(() {
-                        isLoading = true;
+                        isloading = true;
                       });
-                      await addCategory(textEditingController.text, context);
+                      await addNote(
+                          docID: widget.docID,
+                          data: {
+                            'title': textEditingController.text,
+                            'content': contentController.text,
+                            'date': DateTime.now(),
+                          },
+                          context: context);
                       textEditingController.clear();
+                      contentController.clear();
                       setState(() {
-                        isLoading = false;
+                        isloading = false;
                       });
                     } else {
                       awesomeDialogCustom(context, 'Error',
@@ -53,13 +67,13 @@ class _CategoriesViewBodyState extends State<CategoriesViewBody> {
             ],
           ),
         ),
-        if (isLoading)
+        if (isloading)
           Container(
             color: Colors.black.withValues(alpha: 0.5),
             child: const Center(
               child: CircularProgressIndicator(),
             ),
-          ),
+          )
       ],
     );
   }

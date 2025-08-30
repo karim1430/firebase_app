@@ -7,4 +7,6 @@ class Routes {
   static const String homeView = '/home';
   static const String categoriesView = '/categories';
   static const String editView = '/edit';
+  static const String insideCollectionView = '/insideCollection';
+  static const String addNoteView = '/addNote';
 }

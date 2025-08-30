@@ -13,7 +13,7 @@ class HomeView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue,
         onPressed: () {
-          Navigator.of(context).pushNamed(Routes.categoriesView);
+          Navigator.of(context).popAndPushNamed(Routes.categoriesView);
         },
         child: const Icon(Icons.add),
       ),

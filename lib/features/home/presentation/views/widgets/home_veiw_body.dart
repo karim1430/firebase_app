@@ -2,7 +2,6 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_app/core/extensions/navigation_extensions.dart';
 import 'package:fire_app/core/routing/routes.dart';
-import 'package:fire_app/core/utils/awesome_dialog_custom.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../edit_view.dart';
@@ -91,7 +90,10 @@ class _HomeVeiwBodyState extends State<HomeVeiwBody> {
                   //   });
                   // }).show();
                 },
-                onTap: () {},
+                onTap: () {
+                  context.pushNamed(Routes.insideCollectionView,
+                      arguments: folders[index].id);
+                },
                 title: folders[index]['title'],
               );
             },

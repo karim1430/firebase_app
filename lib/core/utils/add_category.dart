@@ -19,7 +19,7 @@ Future<void> addCategory(String title, BuildContext context) {
         duration: Duration(seconds: 2),
       ),
     );
-    context.pushNamed(Routes.homeView);
+    context.pushReplacementNamed(Routes.homeView);
   }).catchError((error) {
     log(error.toString());
     ScaffoldMessenger.of(context).showSnackBar(
