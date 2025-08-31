@@ -9,4 +9,5 @@ class Routes {
   static const String editView = '/edit';
   static const String insideCollectionView = '/insideCollection';
   static const String addNoteView = '/addNote';
+  static const String editNoteView = '/editNote';
 }

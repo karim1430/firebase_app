@@ -38,3 +38,39 @@ Future<void> addNote({
     );
   });
 }
+
+Future<void> editNote({
+  required String docID,
+  required String noteID,
+  required Map<String, dynamic> data,
+  required BuildContext context,
+}) async {
+  data = {
+    'title': data['title'],
+    'content': data['content'],
+    'date': DateTime.now(),
+  };
+  FirebaseFirestore.instance
+      .collection('categories')
+      .doc(docID)
+      .collection('karim')
+      .doc(noteID)
+      .update(data)
+      .then((value) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('note Edited'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+    context.pushReplacementNamed(Routes.insideCollectionView, arguments: docID);
+  }).catchError((error) {
+    log(error.toString());
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Failed to edit note'),
+        duration: Duration(seconds: 2),
+      ),
+    );
+  });
+}

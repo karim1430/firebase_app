@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:fire_app/features/home/presentation/views/categories_view.dart';
-import 'package:fire_app/features/home/presentation/views/edit_view.dart';
 import 'package:fire_app/features/home/presentation/views/home_view.dart';
 import 'package:fire_app/features/inside_collection/presentation/views/add_note_view.dart';
+import 'package:fire_app/features/inside_collection/presentation/views/edit_note_view.dart';
 import 'package:fire_app/features/inside_collection/presentation/views/inside_collection_view.dart';
 import 'package:fire_app/features/login/presentation/views/login_view.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +38,16 @@ class AppRouter {
         {
           final args = settings.arguments;
           return _createRoute(AddNoteView(docID: args as String));
+        }
+      case Routes.editNoteView:
+        {
+          Map<String, dynamic> args =
+              settings.arguments as Map<String, dynamic>;
+
+          return _createRoute(EditNoteView(
+            docID: args.entries.elementAt(0).toString(),
+            noteID: args.entries.elementAt(1).toString(),
+          ));
         }
       default:
         return MaterialPageRoute(

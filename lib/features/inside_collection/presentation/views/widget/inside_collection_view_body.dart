@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:fire_app/core/extensions/navigation_extensions.dart';
+import 'package:fire_app/core/routing/routes.dart';
 import 'package:fire_app/features/home/presentation/views/widgets/folder_card.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -49,37 +53,23 @@ class _InsideCollectionViewBodyState extends State<InsideCollectionViewBody> {
                 createdAt: folders[index]['date'],
                 onlongPress: () {
                   AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.warning,
-                          animType: AnimType.bottomSlide,
-                          title: 'Delete',
-                          desc:
-                              'Are you sure you want to delete this category?',
-                          btnCancelText: 'remove',
-                          btnOkText: 'edit',
-                          btnCancelOnPress: () {
-                            // FirebaseFirestore.instance
-                            //     .collection("categories")
-                            //     .doc(folders[index].id)
-                            //     .delete();
-                            // setState(() {
-                            //   folders.removeAt(index);
-                            // });
-                          },
-                          btnOkOnPress: () {
-                            // TitleAndId titleAndId = TitleAndId(
-                            //     title: folders[index]['title'],
-                            //     id: folders[index].id);
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (context) {
-                            //       return EditView(
-                            //         id: folders[index].id,
-                            //         title: folders[index]['title'],
-                            //       );
-                            //     },
-                            //     settings: RouteSettings(arguments: titleAndId)));
-                          })
-                      .show();
+                      context: context,
+                      dialogType: DialogType.warning,
+                      animType: AnimType.bottomSlide,
+                      title: 'Delete',
+                      desc: 'Are you sure you want to delete this category?',
+                      btnCancelText: 'remove',
+                      btnOkText: 'edit',
+                      btnCancelOnPress: () {
+                        //delete note
+                        removeNote(index, context);
+                      },
+                      btnOkOnPress: () {
+                        context.pushNamed(Routes.editNoteView, arguments: {
+                          'docID': widget.id,
+                          'noteID': folders[index].id,
+                        });
+                      }).show();
                 },
                 onTap: () {},
                 title: folders[index]['title'],
@@ -87,5 +77,33 @@ class _InsideCollectionViewBodyState extends State<InsideCollectionViewBody> {
               );
             },
           );
+  }
+
+  void removeNote(int index, BuildContext context) {
+    FirebaseFirestore.instance
+        .collection('categories')
+        .doc(widget.id)
+        .collection('karim')
+        .doc(folders[index].id)
+        .delete()
+        .then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('note Deleted'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      setState(() {
+        folders.removeAt(index);
+      });
+    }).catchError((error) {
+      log(error.toString());
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed to delete note'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    });
   }
 }
